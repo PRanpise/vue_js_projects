@@ -1,23 +1,23 @@
 <template>
-  <div class='ui centered card'>
-    <!-- <div :key="todo.id"  -->
-     <div v-bind:key="todo.id" v-for="todo in todos">
-      <TodoItem v-bind:todo="todo" />
-    </div> 
-  </div>
+<div>
+    <h1> todos </h1>
+    <div v-bind:key="todo.id" v-for="todo in todos">
+        <TodoItem v-bind:todo="todo" v-on:del-todo="$emit('del-todo', todo.id)"/>
+    </div>
+</div>
+    
 </template>
 <script>
-import TodoItem from './TodoItem';
+import TodoItem from './TodoItem.vue'
 
 export default {
-  name: "Todos",
-  components: {
-    TodoItem,
-  },
-  props: ["todos"],
-
-  methods: {
-   
-  },
-};
+    name: 'Todos',
+    props: ["todos"],
+    components: {
+        TodoItem
+    }
+}
 </script>
+<style scoped>
+
+</style>

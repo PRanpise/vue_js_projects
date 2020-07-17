@@ -1,4 +1,4 @@
-# todo-app
+# life-cycle-example
 
 ## Project setup
 ```

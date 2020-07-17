@@ -1,50 +1,55 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
-    <Todo v-bind:todos="todos" />
+    <input v-model="newTodoItem" v-on:keyup.enter="addTodos" />
+    <button @click="addTodos"> 
+        + ADD
+    </button>
+    <Todos v-bind:todos="todos" v-on:del-todo="deleteTodo"/>
   </div>
 </template>
 
 <script>
 import Todos from './components/Todos'
-
 export default {
   name: 'App',
   components: {
     Todos
   },
-  // data function avails data to the template
   data() {
     return {
-      todos: [{
-        id: 1,
-        title: 'Todo A',
-        project: 'Project A',
-        done: false,
-      }, {
-        id: 2,
-        title: 'Todo B',
-        project: 'Project B',
-        done: true,
-      }, {
-        id: 3,
-        title: 'Todo C',
-        project: 'Project C',
-        done: false,
-      }, {
-        id: 4,
-        title: 'Todo D',
-        project: 'Project D',
-        done: false,
-      }],
-    };
+      todos: [
+        {
+          id: 1,
+          title: 'Todo A',
+          completed: false,
+        },
+        {
+          id: 2,
+          title: 'Todo B',
+          completed: true,
+        }
+      ],
+      count: 2,
+      newTodoItem: ''
+    }
   },
+  methods: {
+    addTodos() {
+      this.count += 1;
+      this.todos.push({ id: this.count, title: this.newTodoItem, completed: false })
+      this.newTodoItem = ''
+    },
+    deleteTodo(id) {
+      //here we are using high order array method "filter"
+      this.todos = this.todos.filter( todo => todo.id !== id);
+    }
+  }
 }
 </script>
 
 <style>
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
